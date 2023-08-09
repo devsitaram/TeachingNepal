@@ -10,7 +10,7 @@ import com.edu.teachingnepal.features.main.MainViewScreen
 fun NavGraphView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.SplashScreen.route){
         composable(Screen.SplashScreen.route){
-            SplashScreen()
+            AnimatedSplashScreen(navController)
         }
         composable(Screen.MainScreen.route){
             MainViewScreen()
