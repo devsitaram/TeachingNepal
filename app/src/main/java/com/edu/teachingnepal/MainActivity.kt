@@ -20,9 +20,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-    val getSharedPreferences = getSharedPreferences("selfPrefs", MODE_PRIVATE)
-        val getDevice = getSharedPreferences.getBoolean("outer_screen", false)
-//    val hasIntroSlider: Boolean = getSharedPreferences.getBoolean("has_view_slider", false)
+        // create the Shared Preferences
+        val getSharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE)
+        val getDeviceUser = getSharedPreferences.getString("outer_screen", "")
 
         setContent {
             TeachingNepalTheme {
@@ -32,25 +32,28 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = ScreenList.SplashScreenList.route){
+                    NavHost(
+                        navController = navController,
+                        startDestination = ScreenList.SplashScreen.route
+                    ) {
 
-                        composable(ScreenList.SplashScreenList.route){
-                            AnimatedSplashScreen(navController, getDevice)
+                        composable(ScreenList.SplashScreen.route) {
+                            AnimatedSplashScreen(navController, getDeviceUser)
                         }
 
-                        composable(ScreenList.LoginScreen.route){
+                        composable(ScreenList.LoginScreen.route) {
                             LoginViewScreen(navController)
                         }
 
-                        composable(ScreenList.SignUpScreen.route){
+                        composable(ScreenList.SignUpScreen.route) {
 //                            AnimatedSplashScreen(navController)
                         }
 
-                        composable(ScreenList.ForgotPassword.route){
+                        composable(ScreenList.ForgotPassword.route) {
 //                            AnimatedSplashScreen(navController)
                         }
 
-                        composable(ScreenList.MainScreenList.route){
+                        composable(ScreenList.MainScreenList.route) {
                             MainViewScreen()
                         }
                     }

@@ -1,5 +1,6 @@
 package com.edu.teachingnepal.features.outerscreen
 
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -31,7 +32,7 @@ import com.edu.teachingnepal.ui.theme.splash
 import kotlinx.coroutines.delay
 
 @Composable
-fun AnimatedSplashScreen(navController: NavHostController, getDevice: Boolean, ) {
+fun AnimatedSplashScreen(navController: NavHostController, getDeviceUser: String?) {
 
     var startAnimate by remember { mutableStateOf(false) }
     val alphaAnim = animateFloatAsState(
@@ -44,10 +45,10 @@ fun AnimatedSplashScreen(navController: NavHostController, getDevice: Boolean, )
     LaunchedEffect(key1 = true) {
         startAnimate = true
         delay(3000)
-        if (getDevice){
-            navController.navigate(ScreenList.MainScreenList.route)
-        } else {
+        if (getDeviceUser == null || getDeviceUser != "sitaram") {
             navController.navigate(ScreenList.LoginScreen.route)
+        } else {
+            navController.navigate(ScreenList.MainScreenList.route)
         }
     }
     SplashScreen(alpha = alphaAnim.value)
@@ -64,7 +65,8 @@ fun SplashScreen(alpha: Float) {
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize().alpha(alpha = alpha),
+                    .fillMaxSize()
+                    .alpha(alpha = alpha),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -73,10 +75,14 @@ fun SplashScreen(alpha: Float) {
                     painter = painterResource(id = R.drawable.img_splash),
                     contentDescription = "splash icon",
                 )
-                Title2(text = "Education Nepal", color = Color.White)
+                Title2(text = "Education Nepal", color = Color.White, alpha)
             }
-            if (alpha != 1f){
-                CircularProgressIndicator(modifier = Modifier.size(50.dp), color = Color.White, strokeWidth = 5.dp)
+            if (alpha != 1f) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(50.dp),
+                    color = Color.White,
+                    strokeWidth = 5.dp
+                )
             }
         }
     }

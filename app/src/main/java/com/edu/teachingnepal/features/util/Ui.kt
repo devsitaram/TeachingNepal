@@ -2,6 +2,8 @@ package com.edu.teachingnepal.features.util
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -13,7 +15,7 @@ import androidx.compose.ui.unit.sp
  * it it reusable component
  */
 @Composable
-fun Title2(text: String, color: Color) {
+fun Title2(text: String, color: Color, alpha: Float) {
     Text(
         text = text,
         style = TextStyle(
@@ -22,5 +24,6 @@ fun Title2(text: String, color: Color) {
         ),
         color = color,
         lineHeight = 40.sp,
+        modifier = Modifier.alpha(alpha)
     )
 }
