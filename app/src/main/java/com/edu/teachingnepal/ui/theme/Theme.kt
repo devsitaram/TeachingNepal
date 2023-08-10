@@ -1,5 +1,6 @@
 package com.edu.teachingnepal.ui.theme
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -37,6 +38,7 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+@SuppressLint("ResourceAsColor", "ObsoleteSdkInt")
 @Composable
 fun TeachingNepalTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -57,7 +59,7 @@ fun TeachingNepalTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = Purple40.toArgb() // colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }

@@ -27,7 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.edu.teachingnepal.R
-import com.edu.teachingnepal.features.util.Title2
+import com.edu.teachingnepal.features.util.ui.Title2
 import com.edu.teachingnepal.ui.theme.splash
 import kotlinx.coroutines.delay
 
@@ -75,7 +75,7 @@ fun SplashScreen(alpha: Float) {
                     painter = painterResource(id = R.drawable.img_splash),
                     contentDescription = "splash icon",
                 )
-                Title2(text = "Education Nepal", color = Color.White, alpha)
+                Title2(text = "Education Nepal", color = Color.White)
             }
             if (alpha != 1f) {
                 CircularProgressIndicator(
