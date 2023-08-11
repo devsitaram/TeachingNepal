@@ -24,10 +24,12 @@ import androidx.compose.ui.unit.dp
 import com.edu.teachingnepal.R
 
 @Composable
-fun MaterialButton(text: String, onClick:()->Unit = {}) {
+fun MaterialButton(text: String, onClick: () -> Unit = {}) {
     Button(
-        onClick = { /*TODO*/ },
-        modifier = Modifier.fillMaxWidth().height(45.dp),
+        onClick = { onClick() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(45.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = colorResource(id = R.color.purple_500)
         )

@@ -1,5 +1,8 @@
 package com.edu.teachingnepal.features.outerscreen.login
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,8 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -38,16 +41,51 @@ import com.edu.teachingnepal.features.util.ui.MediumButtonText
 import com.edu.teachingnepal.features.util.ui.OutlineTextFields
 import com.edu.teachingnepal.features.util.ui.PasswordTextField
 import com.edu.teachingnepal.features.util.ui.RegularText
+import com.edu.teachingnepal.features.util.ui.SmallText
 import com.edu.teachingnepal.features.util.ui.TextButtonWithImageIcon
 import com.edu.teachingnepal.features.util.ui.Title3
 
 @Composable
 fun LoginViewScreen(navController: NavHostController) {
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val sharedPreferences = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+    val loginViewModel = LoginViewModel()
 
-    val onClickAction = { }
+    var email by remember { mutableStateOf("") }
+    var emailErrorMessage by remember { mutableStateOf(false) }
+    var emailEmptyMessage by remember { mutableStateOf(false) }
+    val isEmailEmpty by remember {
+        derivedStateOf {
+            email.isEmpty()
+        }
+    }
+
+    var password by remember { mutableStateOf("") }
+    var passwordErrorMessage by remember { mutableStateOf(false) }
+    val isPasswordEmpty by remember {
+        derivedStateOf {
+            password.isEmpty()
+        }
+    }
+
+    val onClickAction: () -> Unit = {
+        emailErrorMessage = !isEmailEmpty
+        emailEmptyMessage = isEmailEmpty
+        passwordErrorMessage = isPasswordEmpty
+
+        if (!isEmailEmpty && !isPasswordEmpty) {
+            val isSuccess = loginViewModel.loginDetails(email, password, context)
+            if (isSuccess) {
+                // share preference
+                val editor = sharedPreferences.edit()
+                editor.putString("outer_screen", "this").apply()
+                navController.navigate(ScreenList.MainScreenList.route) // navigate
+            } else {
+                emailErrorMessage = true
+            }
+        }
+    }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -67,21 +105,24 @@ fun LoginViewScreen(navController: NavHostController) {
             OutlineTextFields(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = "Enter Email"
+                placeholder = "Enter Email",
+                isEmpty = emailEmptyMessage,
+                isError = emailErrorMessage,
             )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
             PasswordTextField(
                 value = password,
                 onValueChange = { password = it },
-                placeholder = "Enter Password"
+                placeholder = "Enter Password",
+                isEmpty = passwordErrorMessage
             )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 TextButton(
                     modifier = Modifier.wrapContentWidth(),
-                    onClick = { ScreenList.ForgotPassword.route },
+                    onClick = { navController.navigate(ScreenList.ForgotPassword.route) },
                 ) {
                     MediumButtonText(
                         text = "Forgot Your Password?",
@@ -90,8 +131,12 @@ fun LoginViewScreen(navController: NavHostController) {
                 }
             }
 
+            // login button
             Spacer(modifier = Modifier.padding(top = 15.dp))
-            MaterialButton(text = "Sign In", onClick = onClickAction)
+            MaterialButton(
+                text = "Sign In",
+                onClick = onClickAction
+            )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
             DividerWithText(text = "OR")
@@ -107,39 +152,38 @@ fun LoginViewScreen(navController: NavHostController) {
             TextButtonWithImageIcon(
                 painter = painterResource(id = R.drawable.img_facebook),
                 buttonText = "Sing up with Facebook",
-                onClick = {}
+                onClick = { }
             )
 
-            Spacer(modifier = Modifier.padding(top = 35.dp))
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 RegularText(text = "Don't have an account?", color = Color.Gray)
-                Spacer(modifier = Modifier.width(5.dp))
-                RegularText(
-                    text = "Register Now !",
-                    color = colorResource(id = R.color.purple_200)
-                )
+                TextButton(
+                    modifier = Modifier.wrapContentWidth(),
+                    onClick = {
+                        navController.navigate(ScreenList.SignUpScreen.route)
+                    },
+                ) {
+                    MediumButtonText(
+                        text = "Register Now !",
+                        color = colorResource(id = R.color.purple_200)
+                    )
+                }
             }
 
-            Divider(modifier = Modifier.padding(top = 25.dp))
-            Spacer(modifier = Modifier.padding(top = 30.dp))
-            Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center) {
-                Text(text = "Download our Guides", fontSize = 12.sp, color = Color.Gray)
+            Divider(modifier = Modifier.padding(top = 10.dp))
+            Spacer(modifier = Modifier.padding(top = 25.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                SmallText(text = "Download our Guides", color = Color.Gray)
             }
 
         }
     }
 }
-
-
-//val context = LocalContext.current
-//val sharedPreferences = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
-//
-//            Button(
-//                onClick = {
-//                    // Save the preference to indicate that the user has viewed the outer screen
-//                    val editor = sharedPreferences.edit()
-//                    editor.putString("outer_screen", "sitaram").apply()
-//                }) {
-//                Text(text = "Login")
-//            }

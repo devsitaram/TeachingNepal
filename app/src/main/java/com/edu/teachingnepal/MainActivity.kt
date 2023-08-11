@@ -14,6 +14,7 @@ import com.edu.teachingnepal.features.innerscreen.MainViewScreen
 import com.edu.teachingnepal.features.outerscreen.AnimatedSplashScreen
 import com.edu.teachingnepal.features.outerscreen.ScreenList
 import com.edu.teachingnepal.features.outerscreen.login.LoginViewScreen
+import com.edu.teachingnepal.features.outerscreen.register.RegisterViewScreen
 import com.edu.teachingnepal.ui.theme.TeachingNepalTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,10 +33,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = ScreenList.LoginScreen.route
-                    ) {
+                    NavHost(navController = navController, startDestination = ScreenList.LoginScreen.route) {
 
                         composable(ScreenList.SplashScreen.route) {
                             AnimatedSplashScreen(navController, getDeviceUser)
@@ -46,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(ScreenList.SignUpScreen.route) {
-//                            AnimatedSplashScreen(navController)
+                            RegisterViewScreen(navController)
                         }
 
                         composable(ScreenList.ForgotPassword.route) {

@@ -45,7 +45,7 @@ fun AnimatedSplashScreen(navController: NavHostController, getDeviceUser: String
     LaunchedEffect(key1 = true) {
         startAnimate = true
         delay(3000)
-        if (getDeviceUser == null || getDeviceUser != "sitaram") {
+        if (getDeviceUser == null || getDeviceUser != "this") {
             navController.navigate(ScreenList.LoginScreen.route)
         } else {
             navController.navigate(ScreenList.MainScreenList.route)
