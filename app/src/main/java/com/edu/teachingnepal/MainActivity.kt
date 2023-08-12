@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
 
                         composable(ScreenList.SignUpScreen.route) {
                             RegisterViewScreen(navController)
+//                            RegisterViewScreen()
                         }
 
                         composable(ScreenList.ForgotPassword.route) {

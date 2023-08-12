@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -267,49 +268,14 @@ fun MediumButtonText(text: String, color: Color) {
     )
 }
 
-// Small Button Text
-@Composable
-fun SmallButtonText(text: String, color: Color) {
-    Text(
-        text = text,
-        style = TextStyle(
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold
-        ),
-        color = color,
-        lineHeight = 24.sp,
-    )
-}
-
 /**
- * the given below text are using for input text fields
- * fontSize, fontWeight, color and also lineHeight
- * it it reusable component
+ * the given function are require the text, style and modifier
+ * @param text it is get the text
+ * @param style it can be all the style are require
+ * @param modifier this is a modify the tex component
+ * * it it reusable component
  */
-// label
 @Composable
-fun LabelText(text: String, color: Color) {
-    Text(
-        text = text,
-        style = TextStyle(
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Normal
-        ),
-        color = color,
-        lineHeight = 16.sp,
-    )
-}
-
-// Input Text
-@Composable
-fun InputText(text: String, color: Color) {
-    Text(
-        text = text,
-        style = TextStyle(
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Normal
-        ),
-        color = color,
-        lineHeight = 24.sp,
-    )
+fun TextView(text: String, style: TextStyle, modifier: Modifier) {
+    Text(text = text, style = style, modifier = modifier,)
 }

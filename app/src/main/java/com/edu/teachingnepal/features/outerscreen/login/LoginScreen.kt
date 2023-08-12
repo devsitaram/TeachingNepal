@@ -29,6 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -62,7 +64,7 @@ fun LoginViewScreen(navController: NavHostController) {
     }
 
     var password by remember { mutableStateOf("") }
-    var passwordErrorMessage by remember { mutableStateOf(false) }
+    var passwordEmptyMessage by remember { mutableStateOf(false) }
     val isPasswordEmpty by remember {
         derivedStateOf {
             password.isEmpty()
@@ -70,9 +72,8 @@ fun LoginViewScreen(navController: NavHostController) {
     }
 
     val onClickAction: () -> Unit = {
-        emailErrorMessage = !isEmailEmpty
         emailEmptyMessage = isEmailEmpty
-        passwordErrorMessage = isPasswordEmpty
+        passwordEmptyMessage = isPasswordEmpty
 
         if (!isEmailEmpty && !isPasswordEmpty) {
             val isSuccess = loginViewModel.loginDetails(email, password, context)
@@ -91,11 +92,11 @@ fun LoginViewScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp)
+                .padding(start = 18.dp, end = 18.dp)
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Top,
         ) {
-            Spacer(modifier = Modifier.padding(top = 10.dp))
+            Spacer(modifier = Modifier.padding(top = 30.dp))
             ImageViewPainter(painterImage = painterResource(id = R.drawable.img_teaching_nepal))
 
             Spacer(modifier = Modifier.padding(top = 30.dp))
@@ -108,6 +109,7 @@ fun LoginViewScreen(navController: NavHostController) {
                 placeholder = "Enter Email",
                 isEmpty = emailEmptyMessage,
                 isError = emailErrorMessage,
+                invalidMessage = "Enter the valid email address"
             )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
@@ -115,7 +117,7 @@ fun LoginViewScreen(navController: NavHostController) {
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "Enter Password",
-                isEmpty = passwordErrorMessage
+                isEmpty = passwordEmptyMessage
             )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
@@ -135,6 +137,7 @@ fun LoginViewScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.padding(top = 15.dp))
             MaterialButton(
                 text = "Sign In",
+
                 onClick = onClickAction
             )
 
@@ -145,6 +148,13 @@ fun LoginViewScreen(navController: NavHostController) {
             TextButtonWithImageIcon(
                 painter = painterResource(id = R.drawable.img_google),
                 buttonText = "Sing up with Google",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black,
+                    lineHeight = 24.sp
+
+                ),
                 onClick = {}
             )
 
@@ -152,6 +162,12 @@ fun LoginViewScreen(navController: NavHostController) {
             TextButtonWithImageIcon(
                 painter = painterResource(id = R.drawable.img_facebook),
                 buttonText = "Sing up with Facebook",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black,
+                    lineHeight = 24.sp
+                ),
                 onClick = { }
             )
 

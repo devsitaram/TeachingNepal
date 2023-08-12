@@ -17,6 +17,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -26,28 +28,51 @@ import com.edu.teachingnepal.R
 
 // normal text fields
 @Composable
-fun OutlineTextFields(value: String, onValueChange: (String) -> Unit = {}, placeholder: String, isEmpty: Boolean, isError: Boolean) {
+fun OutlineTextFields(
+    value: String,
+    onValueChange: (String) -> Unit = {},
+    placeholder: String,
+    isEmpty: Boolean,
+    isError: Boolean,
+    invalidMessage: String
+) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        placeholder = { InputText(text = placeholder, color = Color.Gray) },
+        placeholder = {
+            TextView(
+                text = placeholder,
+                style = TextStyle(
+                    color = Color.Gray,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    lineHeight = 24.sp
+                ),
+                modifier = Modifier
+            )
+        },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         singleLine = true,
         maxLines = 1,
         isError = (isEmpty || isError),
         modifier = Modifier.fillMaxWidth()
     )
-    if (isEmpty){
+    if (isEmpty) {
         SmallText(text = "The field is required", color = Color.Red)
     }
-    if(isError){
-        SmallText(text = "Enter the valid email address", color = Color.Red)
+    if (isError) {
+        SmallText(text = invalidMessage, color = Color.Red)
     }
 }
 
 // password text fields
 @Composable
-fun PasswordTextField(value: String, onValueChange: (String) -> Unit = {}, placeholder: String, isEmpty: Boolean) {
+fun PasswordTextField(
+    value: String,
+    onValueChange: (String) -> Unit = {},
+    placeholder: String,
+    isEmpty: Boolean
+) {
     val passwordVisibility = remember { mutableStateOf(false) }
     var color by remember { mutableStateOf(Color.Transparent) }
 
@@ -60,7 +85,18 @@ fun PasswordTextField(value: String, onValueChange: (String) -> Unit = {}, place
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        placeholder = { InputText(text = placeholder, color = Color.Gray) },
+        placeholder = {
+            TextView(
+                text = placeholder,
+                style = TextStyle(
+                    color = Color.Gray,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    lineHeight = 24.sp
+                ),
+                modifier = Modifier
+            )
+        },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         singleLine = true,
         maxLines = 1,

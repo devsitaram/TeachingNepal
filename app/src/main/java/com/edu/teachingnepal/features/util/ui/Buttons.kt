@@ -20,7 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.edu.teachingnepal.R
 
 @Composable
@@ -29,22 +32,31 @@ fun MaterialButton(text: String, onClick: () -> Unit = {}) {
         onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth()
-            .height(45.dp),
+            .height(46.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = colorResource(id = R.color.purple_500)
         )
     ) {
-        MediumButtonText(text = text, color = Color.White)
+        TextView(
+            text = text,
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White,
+                lineHeight = 24.sp
+            ),
+            modifier = Modifier
+        )
     }
 }
 
 @Composable
-fun TextButtonWithImageIcon(painter: Painter, buttonText: String, onClick: () -> Unit = {}) {
+fun TextButtonWithImageIcon(painter: Painter, buttonText: String, style: TextStyle, onClick: () -> Unit = {}) {
     OutlinedButton(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .height(45.dp)
+            .height(46.dp)
             .background(Color.White),
     ) {
         Row(
@@ -58,7 +70,11 @@ fun TextButtonWithImageIcon(painter: Painter, buttonText: String, onClick: () ->
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(10.dp))
-            Text(text = buttonText, color = Color.Black)
+            TextView(
+                text = buttonText,
+                style = style,
+                modifier = Modifier
+            )
         }
     }
 }
