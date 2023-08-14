@@ -1,6 +1,7 @@
 package com.edu.teachingnepal.features.outerscreen.register
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +38,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -52,6 +52,7 @@ import com.edu.teachingnepal.features.util.ui.TextButtonWithImageIcon
 import com.edu.teachingnepal.features.util.ui.TextView
 
 val registerViewModel = RegisterViewModel()
+
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterViewScreen(navController: NavHostController) {
@@ -96,12 +97,18 @@ fun RegisterViewScreen(navController: NavHostController) {
     val onClickAction = {
         // name error message
         nameEmptyMessage = isNameEmpty
+        if (isNameEmpty) {
+            nameErrorMessage = false
+        }
         // email error message
         emailEmptyMessage = isEmailEmpty
+        if (isEmailEmpty) {
+            emailErrorMessage = false
+        }
         // password error message
         passwordEmptyMessage = isPasswordEmpty
 
-        if(!isNameEmpty && !isEmailEmpty && !isPasswordEmpty ){
+        if (!isNameEmpty && !isEmailEmpty && !isPasswordEmpty) {
             val isSuccess = registerViewModel.registerDetails(name, email, password, context)
             if (isSuccess) {
                 Toast.makeText(context, "Register success", Toast.LENGTH_SHORT).show()
@@ -121,7 +128,12 @@ fun RegisterViewScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Top,
         ) {
             Spacer(modifier = Modifier.padding(top = 30.dp))
-            ImageViewPainter(painterImage = painterResource(id = R.drawable.img_teaching_nepal))
+            ImageViewPainter(
+                painterImage = painterResource(id = R.drawable.img_teaching_nepal),
+                modifier = Modifier
+                    .background(color = Color.White)
+                    .wrapContentWidth()
+            )
 
             Spacer(modifier = Modifier.padding(top = 30.dp))
             TextView(
@@ -131,7 +143,7 @@ fun RegisterViewScreen(navController: NavHostController) {
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.SansSerif,
                     color = Color.Black,
-                    lineHeight = 30.sp
+                    lineHeight = 30.sp,
                 ),
                 modifier = Modifier
             )
@@ -268,8 +280,12 @@ fun RegisterViewScreen(navController: NavHostController) {
                 isEmpty = passwordEmptyMessage
             )
 
-            Spacer(modifier = Modifier.padding(top = 20.dp))
-            MaterialButton(text = "Create My account", onClick = onClickAction)
+            // sign up button
+            MaterialButton(
+                text = "Create My account",
+                onClick = onClickAction,
+                modifier = Modifier.padding(top = 20.dp)
+            )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
             DividerWithText(text = "OR")
@@ -301,7 +317,10 @@ fun RegisterViewScreen(navController: NavHostController) {
             )
 
             Spacer(modifier = Modifier.padding(top = 30.dp))
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 TextView(
                     text = "For Teacher and Principals who want to use the platform, send an email at: learn@mysecondteacher.com",
                     style = TextStyle(
@@ -334,7 +353,7 @@ fun RegisterViewScreen(navController: NavHostController) {
                 TextButton(
                     modifier = Modifier.wrapContentWidth(),
                     onClick = {
-                         navController.navigate(ScreenList.LoginScreen.route)
+                        navController.navigate(ScreenList.LoginScreen.route)
                     },
                 ) {
                     TextView(

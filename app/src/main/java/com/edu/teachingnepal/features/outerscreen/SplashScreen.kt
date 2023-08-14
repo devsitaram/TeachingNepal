@@ -1,9 +1,7 @@
 package com.edu.teachingnepal.features.outerscreen
 
-import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,10 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.edu.teachingnepal.R
-import com.edu.teachingnepal.features.util.ui.Title2
+import com.edu.teachingnepal.features.util.ui.ImageViewPainter
+import com.edu.teachingnepal.features.util.ui.TextView
 import com.edu.teachingnepal.ui.theme.splash
 import kotlinx.coroutines.delay
 
@@ -70,12 +73,21 @@ fun SplashScreen(alpha: Float) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
+                ImageViewPainter(
+                    painterImage = painterResource(id = R.drawable.img_splash),
                     modifier = Modifier.size(120.dp),
-                    painter = painterResource(id = R.drawable.img_splash),
-                    contentDescription = "splash icon",
                 )
-                Title2(text = "Education Nepal", color = Color.White)
+                TextView(
+                    text = "Education Nepal",
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Default,
+                        color = Color.White,
+                        lineHeight = 40.sp
+                    ),
+                    modifier = Modifier
+                )
             }
             if (alpha != 1f) {
                 CircularProgressIndicator(

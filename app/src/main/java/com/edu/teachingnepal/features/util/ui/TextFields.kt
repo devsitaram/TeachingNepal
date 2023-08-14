@@ -1,6 +1,8 @@
 package com.edu.teachingnepal.features.util.ui
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -36,32 +39,34 @@ fun OutlineTextFields(
     isError: Boolean,
     invalidMessage: String
 ) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        placeholder = {
-            TextView(
-                text = placeholder,
-                style = TextStyle(
-                    color = Color.Gray,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
-                    lineHeight = 24.sp
-                ),
-                modifier = Modifier
-            )
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-        singleLine = true,
-        maxLines = 1,
-        isError = (isEmpty || isError),
-        modifier = Modifier.fillMaxWidth()
-    )
-    if (isEmpty) {
-        SmallText(text = "The field is required", color = Color.Red)
-    }
-    if (isError) {
-        SmallText(text = invalidMessage, color = Color.Red)
+    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            placeholder = {
+                TextView(
+                    text = placeholder,
+                    style = TextStyle(
+                        color = Color.Gray,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 24.sp
+                    ),
+                    modifier = Modifier
+                )
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            singleLine = true,
+            maxLines = 1,
+            isError = (isEmpty || isError),
+            modifier = Modifier.fillMaxWidth()
+        )
+        if (isEmpty) {
+            SmallText(text = "The field is required", color = Color.Red)
+        }
+        if (isError) {
+            SmallText(text = invalidMessage, color = Color.Red)
+        }
     }
 }
 

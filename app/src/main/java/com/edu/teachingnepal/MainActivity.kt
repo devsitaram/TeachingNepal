@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.edu.teachingnepal.features.innerscreen.MainViewScreen
 import com.edu.teachingnepal.features.outerscreen.AnimatedSplashScreen
 import com.edu.teachingnepal.features.outerscreen.ScreenList
+import com.edu.teachingnepal.features.outerscreen.forgotpassword.ForgotPasswordViewScreen
 import com.edu.teachingnepal.features.outerscreen.login.LoginViewScreen
 import com.edu.teachingnepal.features.outerscreen.register.RegisterViewScreen
 import com.edu.teachingnepal.ui.theme.TeachingNepalTheme
@@ -45,11 +46,10 @@ class MainActivity : ComponentActivity() {
 
                         composable(ScreenList.SignUpScreen.route) {
                             RegisterViewScreen(navController)
-//                            RegisterViewScreen()
                         }
 
                         composable(ScreenList.ForgotPassword.route) {
-//                            AnimatedSplashScreen(navController)
+                            ForgotPasswordViewScreen(navController)
                         }
 
                         composable(ScreenList.MainScreenList.route) {

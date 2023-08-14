@@ -32,21 +32,6 @@ fun LargeTitle1(text: String, color: Color) {
     )
 }
 
-// Title 2
-@Composable
-fun Title2(text: String, color: Color) {
-    Text(
-        text = text,
-        style = TextStyle(
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Default
-        ),
-        color = color,
-        lineHeight = 40.sp,
-    )
-}
-
 // Title 3
 @Composable
 fun Title3(text: String, color: Color) {

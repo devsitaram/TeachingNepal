@@ -14,12 +14,10 @@ import androidx.compose.ui.graphics.painter.Painter
  * painter image parameter
  */
 @Composable
-fun ImageViewPainter(painterImage: Painter) {
+fun ImageViewPainter(painterImage: Painter, modifier: Modifier) {
     Image(
         painter = painterImage,
         contentDescription = null,
-        modifier = Modifier
-            .background(color = Color.White)
-            .wrapContentWidth(),
+        modifier = modifier,
     )
 }

@@ -1,22 +1,26 @@
 package com.edu.teachingnepal.features.outerscreen.login
 
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -31,6 +35,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -45,8 +50,10 @@ import com.edu.teachingnepal.features.util.ui.PasswordTextField
 import com.edu.teachingnepal.features.util.ui.RegularText
 import com.edu.teachingnepal.features.util.ui.SmallText
 import com.edu.teachingnepal.features.util.ui.TextButtonWithImageIcon
+import com.edu.teachingnepal.features.util.ui.TextView
 import com.edu.teachingnepal.features.util.ui.Title3
 
+//@Preview
 @Composable
 fun LoginViewScreen(navController: NavHostController) {
 
@@ -72,6 +79,9 @@ fun LoginViewScreen(navController: NavHostController) {
     }
 
     val onClickAction: () -> Unit = {
+        if (isEmailEmpty){
+            emailErrorMessage = false
+        }
         emailEmptyMessage = isEmailEmpty
         passwordEmptyMessage = isPasswordEmpty
 
@@ -97,7 +107,12 @@ fun LoginViewScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Top,
         ) {
             Spacer(modifier = Modifier.padding(top = 30.dp))
-            ImageViewPainter(painterImage = painterResource(id = R.drawable.img_teaching_nepal))
+            ImageViewPainter(
+                painterImage = painterResource(id = R.drawable.img_teaching_nepal),
+                modifier = Modifier
+                    .background(color = Color.White)
+                    .wrapContentWidth()
+            )
 
             Spacer(modifier = Modifier.padding(top = 30.dp))
             Title3(text = "Sing in to your account", color = Color.Black)
@@ -124,7 +139,9 @@ fun LoginViewScreen(navController: NavHostController) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 TextButton(
                     modifier = Modifier.wrapContentWidth(),
-                    onClick = { navController.navigate(ScreenList.ForgotPassword.route) },
+                    onClick = {
+                       navController.navigate(ScreenList.ForgotPassword.route)
+                    },
                 ) {
                     MediumButtonText(
                         text = "Forgot Your Password?",
@@ -134,11 +151,10 @@ fun LoginViewScreen(navController: NavHostController) {
             }
 
             // login button
-            Spacer(modifier = Modifier.padding(top = 15.dp))
             MaterialButton(
                 text = "Sign In",
-
-                onClick = onClickAction
+                onClick = onClickAction,
+                        modifier = Modifier.padding(top = 15.dp)
             )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
@@ -200,6 +216,116 @@ fun LoginViewScreen(navController: NavHostController) {
                 SmallText(text = "Download our Guides", color = Color.Gray)
             }
 
+            Spacer(modifier = Modifier.padding(top = 15.dp))
+            BottomListImage(onClickAction = {} )
         }
     }
+}
+
+@Preview
+@Composable
+fun BottomListImage(onClickAction:()->Unit ={}) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .background(Color.White)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Card(
+                shape = ShapeDefaults.Small,
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .clickable { onClickAction() },
+            ) {
+                Row(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .wrapContentWidth()
+                        .width(IntrinsicSize.Max), // Set the width to the maximum intrinsic width
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .width(60.dp)
+                            .padding(top = 5.dp, start = 5.dp)
+                    ) {
+                        TextView(
+                            text = "For Awesome Students",
+                            style = TextStyle(
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = colorResource(id = R.color.splash)
+                            ),
+                            modifier = Modifier.wrapContentWidth()
+                        )
+                        TextView(
+                            text = "Download our Guide",
+                            style = TextStyle(
+                                fontSize = 5.sp,
+                                color = Color.Gray
+                            ),
+                            modifier = Modifier.wrapContentWidth()
+                        )
+                    }
+                    ImageViewPainter(
+                        painterImage = painterResource(id = R.drawable.img_student),
+                        modifier = Modifier
+                            .background(color = Color.White)
+                            .height(50.dp).padding(end = 5.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.width(5.dp))
+            Card(
+                shape = ShapeDefaults.Small,
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .clickable { onClickAction() },
+            ) {
+                Row(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .wrapContentWidth()
+                        .width(IntrinsicSize.Max), // Set the width to the maximum intrinsic width
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    ImageViewPainter(
+                        painterImage = painterResource(id = R.drawable.img_parent),
+                        modifier = Modifier
+                            .background(color = Color.White)
+                            .height(50.dp).padding(start = 5.dp)
+                    )
+                    Column(
+                        modifier = Modifier
+                            .width(65.dp)
+                            .padding(top = 5.dp, end = 5.dp)
+                    ) {
+                        TextView(
+                            text = "For Responsible Teacher",
+                            style = TextStyle(
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = colorResource(id = R.color.splash)
+                            ),
+                            modifier = Modifier.wrapContentWidth()
+                        )
+                        TextView(
+                            text = "Download our Guide",
+                            style = TextStyle(
+                                fontSize = 5.sp,
+                                color = Color.Gray
+                            ),
+                            modifier = Modifier.wrapContentWidth()
+                        )
+                    }
+                }
+            }
+        }
+    }
+    Spacer(modifier = Modifier.padding(bottom = 20.dp))
 }
