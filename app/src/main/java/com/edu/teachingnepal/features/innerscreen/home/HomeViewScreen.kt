@@ -53,6 +53,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.edu.teachingnepal.R
 import com.edu.teachingnepal.features.innerscreen.notification.NotificationViewScreen
+import com.edu.teachingnepal.features.innerscreen.search.SearchViewScreen
 import com.edu.teachingnepal.features.util.ui.ImageViewPainter
 import com.edu.teachingnepal.features.util.ui.TextView
 import com.edu.teachingnepal.features.util.ui.CardViewMultiTask
@@ -69,15 +70,21 @@ import java.util.Locale
 @Composable
 fun HomeViewScreen() {
     val navHomeController = rememberNavController()
-    NavHost(navController = navHomeController, startDestination = "MainHomeViewScreen"){
-        composable("MainHomeViewScreen"){
+    NavHost(navController = navHomeController, startDestination = HomeScreenItems.MainHomeScreen.route){
+        composable(HomeScreenItems.MainHomeScreen.route){
             MainHomeViewScreen(navHomeController)
         }
-        composable("SearchViewScreen"){
-            SearchViewScreen()
+        composable(HomeScreenItems.SearchScreen.route){
+            SearchViewScreen(navHomeController)
         }
-        composable("NotificationViewScreen"){
+        composable(HomeScreenItems.NotificationsScreen.route){
             NotificationViewScreen(navHomeController)
+        }
+        composable(HomeScreenItems.NoticesScreen.route){
+//            NoticesViewScreen(navHomeController)
+        }
+        composable(HomeScreenItems.SettingScreen.route){
+//            SettingViewScreen()
         }
     }
 }
@@ -96,7 +103,7 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
     ) {
         ButtonAppBar(
             onClick = {
-                navHomeController.navigate("NotificationViewScreen")
+                navHomeController.navigate(HomeScreenItems.NotificationsScreen.route)
             }
         )
         Column(
@@ -126,7 +133,6 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
                 color = yellow,
                 onClick = {}
             )
-
             CardViewMultiTask(
                 icon = Icons.Default.LiveTv,
                 title = "Learn/Review",
@@ -162,17 +168,12 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
     }
 }
 
-@Composable
-fun SearchViewScreen() {
-    TODO("Not yet implemented")
-}
-
 
 //@Composable
 //fun MainHomeViewScreen() {
-////    val contentList = mutableListOf<HomeContentList>()
+////    val contentList = mutableListOf<HomePageItemList>()
 ////    contentList.add(
-////        HomeContentList(
+////        HomePageItemList(
 ////            icon = Icons.Default.LiveTv,
 ////            title = "Learn/Review",
 ////            description = "Click here if you want to learn something new, or revise something that you have already learned",
@@ -180,7 +181,7 @@ fun SearchViewScreen() {
 ////        )
 ////    )
 ////    contentList.add(
-////        HomeContentList(
+////        HomePageItemList(
 ////            icon = Icons.Default.Person,
 ////            title = "Get Answers",
 ////            description = "Click here if you need to us to help you solve a question or explain a particular concept to you",
@@ -188,7 +189,7 @@ fun SearchViewScreen() {
 ////        )
 ////    )
 ////    contentList.add(
-////        HomeContentList(
+////        HomePageItemList(
 ////            icon = Icons.Default.Computer,
 ////            title = "Test Yourself",
 ////            description = "Click here to assess how good you are, and identify areas of weakness so that you can directly work on those areas",
@@ -196,7 +197,7 @@ fun SearchViewScreen() {
 ////        )
 ////    )
 ////    contentList.add(
-////        HomeContentList(
+////        HomePageItemList(
 ////            icon = Icons.Default.Message,
 ////            title = "Socialise",
 ////            description = "Click here to socialise with members of your community, including entering live video and text-chat sessions",
@@ -204,7 +205,7 @@ fun SearchViewScreen() {
 ////        )
 ////    )
 ////    contentList.add(
-////        HomeContentList(
+////        HomePageItemList(
 ////            icon = Icons.Default.Copyright,
 ////            title = "Get & Sumbit Assignment",
 ////            description = "Click here to get and sumbit work that your teachers have assigned to you",
@@ -295,7 +296,7 @@ fun ButtonAppBar(onClick:()-> Unit = {}) {
                     // notification icon
                     IconButton(
                         onClick = {
-                            // onclick action
+
                         }
                     ) {
                         BottomNavigationItem(

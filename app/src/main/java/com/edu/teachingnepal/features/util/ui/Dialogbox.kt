@@ -29,7 +29,7 @@ import com.edu.teachingnepal.ui.theme.Purple80
  * @param onDismiss function
  */
 @Composable
-fun SampleDialogBox(title: String, text: String, onDismiss: () -> Unit) {
+fun CustomDialogBox(title: String, text: String, onDismiss: () -> Unit = {}) {
 //    val activity = (LocalContext.current as Activity)
     AlertDialog(
         onDismissRequest = { onDismiss() },
@@ -44,10 +44,17 @@ fun SampleDialogBox(title: String, text: String, onDismiss: () -> Unit) {
             }
         },
         confirmButton = {
-            TextButton(
-                onClick = { onDismiss() } // activity.finish()
+            Button(
+                modifier = Modifier,
+                onClick = {
+                    onDismiss()
+                    // navigate to setting page
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(id = R.color.purple_500)
+                )
             ) {
-                Text(text = "Confirm")
+                TextView(text = "Okay", style = TextStyle(), modifier = Modifier)
             }
         }
     )
@@ -85,7 +92,9 @@ fun ButtonDialogBox(title: String, text: String, onDismiss: () -> Unit = {}) {
             ) {
                 Button(
                     modifier = Modifier,
-                    onClick = { onDismiss() },
+                    onClick = {
+                        onDismiss()
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(id = R.color.purple_500)
                     )
