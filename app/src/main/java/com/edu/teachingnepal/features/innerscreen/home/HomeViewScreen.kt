@@ -70,21 +70,27 @@ import java.util.Locale
 @Composable
 fun HomeViewScreen() {
     val navHomeController = rememberNavController()
-    NavHost(navController = navHomeController, startDestination = HomeScreenItems.MainHomeScreen.route){
-        composable(HomeScreenItems.MainHomeScreen.route){
+    NavHost(
+        navController = navHomeController,
+        startDestination = HomeScreenItems.MainHomeScreen.route
+    ) {
+        composable(HomeScreenItems.MainHomeScreen.route) {
             MainHomeViewScreen(navHomeController)
         }
-        composable(HomeScreenItems.SearchScreen.route){
+        composable(HomeScreenItems.SearchScreen.route) {
             SearchViewScreen(navHomeController)
         }
-        composable(HomeScreenItems.NotificationsScreen.route){
+        composable(HomeScreenItems.NotificationsScreen.route) {
             NotificationViewScreen(navHomeController)
         }
-        composable(HomeScreenItems.NoticesScreen.route){
+        composable(HomeScreenItems.NoticesScreen.route) {
 //            NoticesViewScreen(navHomeController)
         }
-        composable(HomeScreenItems.SettingScreen.route){
+        composable(HomeScreenItems.SettingScreen.route) {
 //            SettingViewScreen()
+        }
+        composable(HomeScreenItems.SearchScreen.route) {
+            SearchViewScreen(navHomeController)
         }
     }
 }
@@ -101,11 +107,7 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ButtonAppBar(
-            onClick = {
-                navHomeController.navigate(HomeScreenItems.NotificationsScreen.route)
-            }
-        )
+        ButtonAppBar(navHomeController)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -126,7 +128,6 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
                 ),
                 modifier = Modifier.padding(top = 25.dp, bottom = 20.dp)
             )
-
             CardViewSingleTask(
                 imageVector = Icons.Default.ContentCopy,
                 text = "Task List",
@@ -260,7 +261,7 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ButtonAppBar(onClick:()-> Unit = {}) {
+fun ButtonAppBar(navHomeController: NavHostController) {
     TopAppBar(
         title = { Text(text = "") },
         navigationIcon = {
@@ -283,7 +284,7 @@ fun ButtonAppBar(onClick:()-> Unit = {}) {
                     // search icon
                     IconButton(
                         onClick = {
-                            // onClick action
+                            navHomeController.navigate(HomeScreenItems.SearchScreen.route)
                         }
                     ) {
                         Icon(
@@ -294,11 +295,7 @@ fun ButtonAppBar(onClick:()-> Unit = {}) {
                         )
                     }
                     // notification icon
-                    IconButton(
-                        onClick = {
-
-                        }
-                    ) {
+                    IconButton(onClick = {}) {
                         BottomNavigationItem(
                             icon = {
                                 BadgedBox(
@@ -323,7 +320,7 @@ fun ButtonAppBar(onClick:()-> Unit = {}) {
                                 }
                             },
                             selected = false,
-                            onClick = { onClick() },
+                            onClick = { navHomeController.navigate(HomeScreenItems.NotificationsScreen.route) },
                             modifier = Modifier,
                         )
                     }

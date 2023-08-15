@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.edu.teachingnepal.features.util.ui.TextView
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardViewSingleTask(imageVector: ImageVector,text: String, color: Color, onClick: () -> Unit = {}) {
@@ -38,7 +37,7 @@ fun CardViewSingleTask(imageVector: ImageVector,text: String, color: Color, onCl
                 text = text,
                 style = TextStyle(
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.Normal,
+                    fontWeight = FontWeight.SemiBold,
                     fontFamily = FontFamily.Default
                 ),
                 modifier = Modifier.padding(start = 10.dp)
