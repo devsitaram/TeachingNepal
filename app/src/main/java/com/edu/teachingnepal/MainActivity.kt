@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.edu.teachingnepal.features.innerscreen.MainViewScreen
+import com.edu.teachingnepal.features.innerscreen.main.MainViewScreen
 import com.edu.teachingnepal.features.outerscreen.AnimatedSplashScreen
 import com.edu.teachingnepal.features.outerscreen.ScreenList
 import com.edu.teachingnepal.features.outerscreen.forgotpassword.ForgotPasswordViewScreen
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         // create the Shared Preferences
         val getSharedPreferences = getSharedPreferences("my_preferences", MODE_PRIVATE)
-        val getDeviceUser = getSharedPreferences.getString("outer_screen", "")
+        val getUserDevice = getSharedPreferences.getString("outer_screen", "")
 
         setContent {
             TeachingNepalTheme {
@@ -34,10 +34,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = ScreenList.LoginScreen.route) {
+                    NavHost(navController = navController, startDestination = ScreenList.MainScreen.route) {
 
                         composable(ScreenList.SplashScreen.route) {
-                            AnimatedSplashScreen(navController, getDeviceUser)
+                            AnimatedSplashScreen(navController, getUserDevice)
                         }
 
                         composable(ScreenList.LoginScreen.route) {
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                             ForgotPasswordViewScreen(navController)
                         }
 
-                        composable(ScreenList.MainScreenList.route) {
+                        composable(ScreenList.MainScreen.route) {
                             MainViewScreen()
                         }
                     }

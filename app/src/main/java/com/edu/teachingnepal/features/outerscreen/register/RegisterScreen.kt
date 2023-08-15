@@ -129,7 +129,7 @@ fun RegisterViewScreen(navController: NavHostController) {
         ) {
             Spacer(modifier = Modifier.padding(top = 30.dp))
             ImageViewPainter(
-                painterImage = painterResource(id = R.drawable.img_teaching_nepal),
+                painterImage = painterResource(id = R.mipmap.img_teaching_nepal),
                 modifier = Modifier
                     .background(color = Color.White)
                     .wrapContentWidth()
@@ -292,7 +292,7 @@ fun RegisterViewScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
             TextButtonWithImageIcon(
-                painter = painterResource(id = R.drawable.img_google),
+                painter = painterResource(id = R.mipmap.img_google),
                 buttonText = "Sing up with Google",
                 style = TextStyle(
                     fontSize = 14.sp,
@@ -305,7 +305,7 @@ fun RegisterViewScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.padding(top = 10.dp))
             TextButtonWithImageIcon(
-                painter = painterResource(id = R.drawable.img_facebook),
+                painter = painterResource(id = R.mipmap.img_facebook),
                 buttonText = "Sing up with Facebook",
                 style = TextStyle(
                     fontSize = 14.sp,

@@ -35,23 +35,23 @@ import com.edu.teachingnepal.ui.theme.splash
 import kotlinx.coroutines.delay
 
 @Composable
-fun AnimatedSplashScreen(navController: NavHostController, getDeviceUser: String?) {
+fun AnimatedSplashScreen(navController: NavHostController, getUserDevice: String?) {
 
     var startAnimate by remember { mutableStateOf(false) }
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimate) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 2500
+            durationMillis = 2000
         ),
     )
 
     LaunchedEffect(key1 = true) {
         startAnimate = true
-        delay(3000)
-        if (getDeviceUser == null || getDeviceUser != "this") {
+        delay(2000)
+        if (getUserDevice == null || getUserDevice != "this") {
             navController.navigate(ScreenList.LoginScreen.route)
         } else {
-            navController.navigate(ScreenList.MainScreenList.route)
+            navController.navigate(ScreenList.MainScreen.route)
         }
     }
     SplashScreen(alpha = alphaAnim.value)
@@ -74,7 +74,7 @@ fun SplashScreen(alpha: Float) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ImageViewPainter(
-                    painterImage = painterResource(id = R.drawable.img_splash),
+                    painterImage = painterResource(id = R.mipmap.img_splash),
                     modifier = Modifier.size(120.dp),
                 )
                 TextView(

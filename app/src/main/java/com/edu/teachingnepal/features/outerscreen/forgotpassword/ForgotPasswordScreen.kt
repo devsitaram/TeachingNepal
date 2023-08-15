@@ -84,12 +84,12 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
                 .background(Color.White), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageViewPainter(
-                painterImage = painterResource(id = R.drawable.img_teaching_nepal),
+                painterImage = painterResource(id = R.mipmap.img_teaching_nepal),
                 modifier = Modifier.padding(top = 30.dp)
             )
 
             ImageViewPainter(
-                painterImage = painterResource(id = R.drawable.img),
+                painterImage = painterResource(id = R.mipmap.img_resetpassword),
                 modifier = Modifier.padding(top = 70.dp)
             )
 

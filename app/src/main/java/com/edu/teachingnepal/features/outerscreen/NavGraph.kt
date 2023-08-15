@@ -2,9 +2,6 @@ package com.edu.teachingnepal.features.outerscreen
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.edu.teachingnepal.features.innerscreen.MainViewScreen
 
 @Composable
 fun NavGraphView(navController: NavHostController) {

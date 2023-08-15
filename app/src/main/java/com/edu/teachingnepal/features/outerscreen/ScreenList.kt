@@ -5,5 +5,5 @@ sealed class ScreenList(val route: String) {
     object LoginScreen : ScreenList("LoginScreen")
     object SignUpScreen : ScreenList("SignUpScreen")
     object ForgotPassword : ScreenList("ForgotPassword")
-    object MainScreenList : ScreenList("MainScreen")
+    object MainScreen : ScreenList("MainScreen")
 }
