@@ -21,13 +21,11 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -37,7 +35,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -54,28 +51,31 @@ import com.edu.teachingnepal.features.util.ui.TextView
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SearchViewScreen(navHomeController: NavHostController) {
-    var text by remember { mutableStateOf("") }
-    var active by remember { mutableStateOf(false) }
+
     val items = remember {
-        mutableStateListOf(
-            "Google", "YouTube", "Facebook", "Tiktok"
-        )
+        mutableStateListOf("Google", "YouTube", "Facebook", "Tiktok")
     }
+
+    var text by remember { mutableStateOf("") }
+    var activeIcon by remember { mutableStateOf(false) }
+    var active by remember { mutableStateOf(false) }
+
     Scaffold(modifier = Modifier.fillMaxSize()) {
         SearchBar(
             query = text,
             onQueryChange = { newText ->
                 text = newText
-                active = newText.isNotEmpty() // Set active immediately when text is entered
+                if (newText.isNotEmpty()) {
+                    active = true
+                    activeIcon = true
+                }
             },
             onSearch = {
                 if (!items.contains(text)) { // Check if text is not already in the list
                     items.add(0, text)
                 }
-                active = true // Set active on search
-                text = ""
+                active = false // Set active on search
             },
-            active = active,
             onActiveChange = { newActive -> active = newActive },
             placeholder = {
                 TextView(
@@ -98,9 +98,9 @@ fun SearchViewScreen(navHomeController: NavHostController) {
                 )
             },
             trailingIcon = {
-                if (active && text.isNotEmpty()) {
+                if (activeIcon && text.isNotEmpty()) {
                     Icon(
-                        modifier = Modifier.clickable {
+                        modifier = Modifier.size(20.dp).clickable {
                             if (text.isNotEmpty()) {
                                 text = ""
                             } else {
@@ -113,6 +113,7 @@ fun SearchViewScreen(navHomeController: NavHostController) {
                 }
             }
         ) {
+            // content
             if (active) {
                 Column(
                     modifier = Modifier
@@ -145,9 +146,7 @@ fun SearchViewScreen(navHomeController: NavHostController) {
                                     .padding(end = 10.dp),
                                 horizontalArrangement = Arrangement.End
                             ) {
-                                IconButton(onClick = {
-                                    items.remove(item) // Remove the item from the list
-                                }) {
+                                IconButton(onClick = { items.remove(item) }) {
                                     Icon(
                                         imageVector = Icons.Default.Close,
                                         contentDescription = null,
@@ -158,18 +157,25 @@ fun SearchViewScreen(navHomeController: NavHostController) {
                         }
                     }
                 }
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    TextView(text = text, style = TextStyle(), modifier = Modifier)
+                }
             }
+
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
     onSearch: () -> Unit,
-    active: Boolean,
     onActiveChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -178,6 +184,7 @@ fun SearchBar(
     trailingIcon: @Composable() (() -> Unit)? = null,
     content: @Composable() (ColumnScope.() -> Unit),
 ) {
+    val color = Color.White
     val keyboardController = LocalSoftwareKeyboardController.current
     Column(
         modifier = modifier.fillMaxSize(),
@@ -200,10 +207,16 @@ fun SearchBar(
             maxLines = 1,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp)
                 .clickable { onActiveChange(true) }, // Set search bar as active on click
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = color,
+                cursorColor = Color.Gray,
+                focusedIndicatorColor = color,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+            )
         )
         content()
     }

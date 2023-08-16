@@ -25,29 +25,29 @@ import com.edu.teachingnepal.R
 @Composable
 fun SubjectViewScreen() {
 
-    val context = LocalContext.current
-    var mediaPlayer = MediaPlayer.create(context, R.raw.sound)
-
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "Subject")
-
-            // Your button content here
-            Button(onClick = { mediaPlayer.start() }) {
-                Text(text = "Ok")
-            }
-
-            DisposableEffect(Unit) {
-                onDispose {
-                    mediaPlayer.release()
-                }
-            }
-        }
-    }
+//    val context = LocalContext.current
+//    var mediaPlayer = MediaPlayer.create(context, R.raw.sound)
+//
+//    Surface(modifier = Modifier.fillMaxSize()) {
+//        Column(
+//            modifier = Modifier.fillMaxWidth(),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Text(text = "Subject")
+//
+//            // Your button content here
+//            Button(onClick = { mediaPlayer.start() }) {
+//                Text(text = "Ok")
+//            }
+//
+//            DisposableEffect(Unit) {
+//                onDispose {
+//                    mediaPlayer.release()
+//                }
+//            }
+//        }
+//    }
 }
 
 @Composable

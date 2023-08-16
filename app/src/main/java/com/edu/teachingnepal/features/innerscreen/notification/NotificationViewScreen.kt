@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -83,7 +84,15 @@ fun NotificationViewScreen(navHomeController: NavHostController) {
     if (showDialogBox) {
         AlertDialog(
             onDismissRequest = { onDismiss() },
-            title = { Text(text = "Notification Premium Denied") },
+            title = { TextView(
+                text = "Notification Premium Denied",
+                style = TextStyle(
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.SemiBold
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) },
             text = { Text(text = "Please Grant Notification Permission from App Settings.") },
             confirmButton = {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
@@ -92,7 +101,7 @@ fun NotificationViewScreen(navHomeController: NavHostController) {
                             onDismiss()
                         }
                     ) {
-                        Text(text = "Dismiss")
+                        Text(text = "Cancel", color = Color.Black)
                     }
                     Button(
                         modifier = Modifier.height(50.dp),
