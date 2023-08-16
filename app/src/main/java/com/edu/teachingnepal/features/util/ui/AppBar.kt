@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.edu.teachingnepal.R
-import com.edu.teachingnepal.features.innerscreen.home.HomeScreenItems
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +58,9 @@ fun TopAppBar(title: String, navController: NavHostController) {
         },
         navigationIcon = {
             IconButton(
-                onClick = { navController.navigate(HomeScreenItems.MainHomeScreen.route) }
+                onClick = {
+                    navController.navigateUp()
+                }
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),

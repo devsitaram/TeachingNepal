@@ -52,6 +52,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.edu.teachingnepal.R
+import com.edu.teachingnepal.features.innerscreen.main.MainScreenItems
 import com.edu.teachingnepal.features.innerscreen.notification.NotificationViewScreen
 import com.edu.teachingnepal.features.innerscreen.search.SearchViewScreen
 import com.edu.teachingnepal.features.util.ui.ImageViewPainter
@@ -66,38 +67,8 @@ import com.edu.teachingnepal.ui.theme.white
 import com.edu.teachingnepal.ui.theme.yellow
 import java.util.Locale
 
-@Preview
 @Composable
-fun HomeViewScreen() {
-    val navHomeController = rememberNavController()
-    NavHost(
-        navController = navHomeController,
-        startDestination = HomeScreenItems.MainHomeScreen.route
-    ) {
-        composable(HomeScreenItems.MainHomeScreen.route) {
-            MainHomeViewScreen(navHomeController)
-        }
-        composable(HomeScreenItems.SearchScreen.route) {
-            SearchViewScreen(navHomeController)
-        }
-        composable(HomeScreenItems.NotificationsScreen.route) {
-            NotificationViewScreen(navHomeController)
-        }
-        composable(HomeScreenItems.NoticesScreen.route) {
-//            NoticesViewScreen(navHomeController)
-        }
-        composable(HomeScreenItems.SettingScreen.route) {
-//            SettingViewScreen()
-        }
-        composable(HomeScreenItems.SearchScreen.route) {
-            SearchViewScreen(navHomeController)
-        }
-    }
-}
-
-
-@Composable
-fun MainHomeViewScreen(navHomeController: NavHostController) {
+fun HomeViewScreen(navController: NavHostController) {
     val name = "Sita Ram Thing,"
     val formattedText = getTextFormatted(name) // text convert into bold and upper case
     Column(
@@ -107,7 +78,7 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ButtonAppBar(navHomeController)
+        ButtonAppBar(navController)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -261,7 +232,7 @@ fun MainHomeViewScreen(navHomeController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ButtonAppBar(navHomeController: NavHostController) {
+fun ButtonAppBar(navController: NavHostController) {
     TopAppBar(
         title = { Text(text = "") },
         navigationIcon = {
@@ -284,7 +255,7 @@ fun ButtonAppBar(navHomeController: NavHostController) {
                     // search icon
                     IconButton(
                         onClick = {
-                            navHomeController.navigate(HomeScreenItems.SearchScreen.route)
+                            navController.navigate(MainScreenItems.SearchScreen.route)
                         }
                     ) {
                         Icon(
@@ -320,7 +291,7 @@ fun ButtonAppBar(navHomeController: NavHostController) {
                                 }
                             },
                             selected = false,
-                            onClick = { navHomeController.navigate(HomeScreenItems.NotificationsScreen.route) },
+                            onClick = { navController.navigate(MainScreenItems.NotificationsScreen.route) },
                             modifier = Modifier,
                         )
                     }

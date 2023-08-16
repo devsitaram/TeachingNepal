@@ -38,7 +38,7 @@ fun MaterialButton(text: String, onClick: () -> Unit = {}, modifier: Modifier) {
         TextView(
             text = text,
             style = TextStyle(
-                fontSize = 14.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 lineHeight = 24.sp

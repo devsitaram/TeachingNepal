@@ -9,3 +9,10 @@ open class ScreenListItem(var icon: Int, val route: String) {
     object APTutor: ScreenListItem(R.drawable.ic_message,"AP Tutor")
     object More: ScreenListItem(R.drawable.ic_more,"More")
 }
+
+sealed class MainScreenItems(val route: String){
+    object SearchScreen: MainScreenItems("SearchScreen")
+    object NotificationsScreen: MainScreenItems("NotificationsScreen")
+    object NoticesScreen: MainScreenItems("NoticesScreen")
+    object SettingScreen: MainScreenItems("SettingScreen")
+}

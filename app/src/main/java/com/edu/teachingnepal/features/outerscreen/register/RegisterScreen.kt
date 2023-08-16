@@ -65,7 +65,6 @@ fun RegisterViewScreen(navController: NavHostController) {
     // state of the menu
     var expandedPerson by remember { mutableStateOf(false) }
     var expandedGrade by remember { mutableStateOf(false) }
-
     // remember the selected item
     var selectedPersonItem by remember { mutableStateOf(listOfPersons[0]) }
     var selectedGradeItem by remember { mutableStateOf(listOfGrades[0]) }
@@ -197,7 +196,6 @@ fun RegisterViewScreen(navController: NavHostController) {
                                     ),
                                     modifier = Modifier
                                 )
-//                                RegularText(text = selectedOption, color = Color.Black)
                             }
                         }
                     }

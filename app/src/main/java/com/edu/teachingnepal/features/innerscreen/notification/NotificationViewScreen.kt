@@ -40,13 +40,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.edu.teachingnepal.R
-import com.edu.teachingnepal.features.innerscreen.home.HomeScreenItems
 import com.edu.teachingnepal.features.util.ui.ButtonDialogBox
 import com.edu.teachingnepal.features.util.ui.TextView
 import com.edu.teachingnepal.features.util.ui.TopAppBar
 
 @Composable
-fun NotificationViewScreen(navHomeController: NavHostController) {
+fun NotificationViewScreen(navController: NavHostController) {
 
     var showDialogBox by remember { mutableStateOf(true) }
     val onDismiss: () -> Unit = {
@@ -59,7 +58,7 @@ fun NotificationViewScreen(navHomeController: NavHostController) {
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        TopAppBar(title = "Notifications", navController = navHomeController)
+        TopAppBar(title = "Notifications", navController = navController)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -107,7 +106,8 @@ fun NotificationViewScreen(navHomeController: NavHostController) {
                         modifier = Modifier.height(50.dp),
                         onClick = {
                             onDismiss()
-                            navHomeController.navigate(HomeScreenItems.SettingScreen.route)
+                            navController.navigateUp()
+//                            navController.navigate(HomeScreenItems.SettingScreen.route)
                             // navigate to setting page
                         },
                         colors = ButtonDefaults.buttonColors(

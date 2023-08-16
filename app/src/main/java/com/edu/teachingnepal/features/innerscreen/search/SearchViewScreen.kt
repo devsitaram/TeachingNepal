@@ -44,13 +44,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.edu.teachingnepal.R
-import com.edu.teachingnepal.features.innerscreen.home.HomeScreenItems
 import com.edu.teachingnepal.features.util.ui.TextView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun SearchViewScreen(navHomeController: NavHostController) {
+fun SearchViewScreen(navController: NavHostController) {
 
     val items = remember {
         mutableStateListOf("Google", "YouTube", "Facebook", "Tiktok")
@@ -93,7 +92,7 @@ fun SearchViewScreen(navHomeController: NavHostController) {
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = null,
                     modifier = Modifier.clickable {
-                        navHomeController.navigate(HomeScreenItems.MainHomeScreen.route)
+                        navController.navigateUp()
                     }
                 )
             },
