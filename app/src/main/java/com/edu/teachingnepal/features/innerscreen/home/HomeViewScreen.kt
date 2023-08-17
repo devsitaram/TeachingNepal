@@ -298,10 +298,7 @@ fun ButtonAppBar(navController: NavHostController) {
                 }
             }
         },
-        modifier = Modifier
-            .shadow(5.dp)
-            .height(57.dp)
-            .fillMaxWidth(),
+        modifier = Modifier.shadow(5.dp).height(57.dp).fillMaxWidth(),
     )
 }
 

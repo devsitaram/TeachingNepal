@@ -34,12 +34,6 @@ import com.edu.teachingnepal.features.innerscreen.subject.SubjectViewScreen
 @Composable
 fun MainViewScreen() {
     MainButtonNavigationViewScreen()
-//    val navController = rememberNavController()
-//    NavHost(navController = navController, startDestination = "home") {
-//        composable("home") {
-//
-//        }
-//    }
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.edu.teachingnepal.R
+import com.edu.teachingnepal.features.util.ui.CircularIndicator
 import com.edu.teachingnepal.features.util.ui.ImageViewPainter
 import com.edu.teachingnepal.features.util.ui.TextView
 import com.edu.teachingnepal.ui.theme.splash
@@ -43,6 +44,7 @@ fun AnimatedSplashScreen(navController: NavHostController, getUserDevice: String
         animationSpec = tween(
             durationMillis = 2000
         ),
+        label = "",
     )
 
     LaunchedEffect(key1 = true) {
@@ -90,11 +92,7 @@ fun SplashScreen(alpha: Float) {
                 )
             }
             if (alpha != 1f) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(50.dp),
-                    color = Color.White,
-                    strokeWidth = 5.dp
-                )
+                CircularIndicator(color = Color.White, modifier = Modifier.size(50.dp))
             }
         }
     }
