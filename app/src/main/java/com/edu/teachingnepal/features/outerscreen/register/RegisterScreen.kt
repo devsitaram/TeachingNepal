@@ -46,8 +46,8 @@ import com.edu.teachingnepal.features.outerscreen.ScreenList
 import com.edu.teachingnepal.features.util.ui.DividerWithText
 import com.edu.teachingnepal.features.util.ui.ImageViewPainter
 import com.edu.teachingnepal.features.util.ui.MaterialButton
-import com.edu.teachingnepal.features.util.ui.OutlineTextFields
-import com.edu.teachingnepal.features.util.ui.PasswordTextField
+import com.edu.teachingnepal.features.util.ui.OutlineTextFieldView
+import com.edu.teachingnepal.features.util.ui.PasswordTextFieldView
 import com.edu.teachingnepal.features.util.ui.TextButtonWithImageIcon
 import com.edu.teachingnepal.features.util.ui.TextView
 
@@ -243,7 +243,6 @@ fun RegisterViewScreen(navController: NavHostController) {
                                     ),
                                     modifier = Modifier
                                 )
-//                                RegularText(text = selectedOption, color = Color.Black)
                             }
                         }
                     }
@@ -251,7 +250,7 @@ fun RegisterViewScreen(navController: NavHostController) {
             }
 
             Spacer(modifier = Modifier.padding(top = 20.dp))
-            OutlineTextFields(
+            OutlineTextFieldView(
                 value = name,
                 onValueChange = { name = it },
                 placeholder = "Full Name",
@@ -261,7 +260,7 @@ fun RegisterViewScreen(navController: NavHostController) {
             )
 
             Spacer(modifier = Modifier.padding(top = 20.dp))
-            OutlineTextFields(
+            OutlineTextFieldView(
                 value = email,
                 onValueChange = { email = it },
                 placeholder = "Enter Email",
@@ -271,7 +270,7 @@ fun RegisterViewScreen(navController: NavHostController) {
             )
 
             Spacer(modifier = Modifier.padding(top = 20.dp))
-            PasswordTextField(
+            PasswordTextFieldView(
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "Enter Password",

@@ -15,4 +15,5 @@ sealed class MainScreenItems(val route: String){
     object NotificationsScreen: MainScreenItems("NotificationsScreen")
     object NoticesScreen: MainScreenItems("NoticesScreen")
     object SettingScreen: MainScreenItems("SettingScreen")
+    object SubjectDetails:  MainScreenItems("SubjectDetails")
 }

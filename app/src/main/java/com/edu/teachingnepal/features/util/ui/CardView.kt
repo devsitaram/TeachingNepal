@@ -3,6 +3,7 @@ package com.edu.teachingnepal.features.util.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -132,11 +133,19 @@ fun CardViewMultiTask(
 }
 
 @Composable
-fun ContentCardView(painter: Painter, topic: String, description: String) {
+fun ContentCardView(
+    painter: Painter,
+    topic: String,
+    description: String,
+    onClickable: () -> Unit = { }
+) {
     Card(
         modifier = Modifier
-            .fillMaxWidth().padding(bottom = 15.dp)
-            .border(1.dp, Color.LightGray), shape = ShapeDefaults.Medium
+            .fillMaxWidth()
+            .padding(bottom = 15.dp)
+            .border(1.dp, Color.LightGray)
+            .clickable { onClickable() },
+        shape = ShapeDefaults.Medium
     ) {
         Row(
             modifier = Modifier

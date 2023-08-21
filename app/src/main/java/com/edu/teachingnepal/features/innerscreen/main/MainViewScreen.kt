@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -30,6 +31,8 @@ import com.edu.teachingnepal.features.innerscreen.more.MoreViewScreen
 import com.edu.teachingnepal.features.innerscreen.notification.NotificationViewScreen
 import com.edu.teachingnepal.features.innerscreen.search.SearchViewScreen
 import com.edu.teachingnepal.features.innerscreen.subject.SubjectViewScreen
+import com.edu.teachingnepal.features.innerscreen.subject.mststore.SubjectDetailsViewModel
+import com.edu.teachingnepal.features.innerscreen.subject.mststore.SubjectDetailsViewScreen
 
 @Composable
 fun MainViewScreen() {
@@ -102,13 +105,18 @@ fun MainButtonNavigationViewScreen() {
 
 @Composable
 fun NavigationScreen(navController: NavHostController) {
+
+    val subjectDetailsViewModel: SubjectDetailsViewModel = viewModel()
+
     NavHost(navController = navController, startDestination = ScreenListItem.Home.route) {
+        // button navigation bar screen
         composable(ScreenListItem.Home.route) { HomeViewScreen(navController) }
-        composable(ScreenListItem.Subject.route) { SubjectViewScreen(navController) }
-        composable(ScreenListItem.Classroom.route) { ClassroomViewScreen() }
-        composable(ScreenListItem.APTutor.route) { APTutorViewScreen() }
+        composable(ScreenListItem.Subject.route) { SubjectViewScreen(navController, subjectDetailsViewModel) }
+        composable(ScreenListItem.Classroom.route) { ClassroomViewScreen(navController) }
+        composable(ScreenListItem.APTutor.route) { APTutorViewScreen(navController) }
         composable(ScreenListItem.More.route) { MoreViewScreen() }
 
+        // external screen
         composable(MainScreenItems.SearchScreen.route){
             SearchViewScreen(navController)
         }
@@ -120,6 +128,10 @@ fun NavigationScreen(navController: NavHostController) {
         }
         composable(MainScreenItems.SettingScreen.route) {
 //            SettingViewScreen()
+        }
+
+        composable(MainScreenItems.SubjectDetails.route) {
+            SubjectDetailsViewScreen(navController, subjectDetailsViewModel)
         }
     }
 }

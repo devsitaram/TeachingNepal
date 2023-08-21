@@ -35,7 +35,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -45,18 +44,16 @@ import com.edu.teachingnepal.features.util.ui.DividerWithText
 import com.edu.teachingnepal.features.util.ui.ImageViewPainter
 import com.edu.teachingnepal.features.util.ui.MaterialButton
 import com.edu.teachingnepal.features.util.ui.MediumButtonText
-import com.edu.teachingnepal.features.util.ui.OutlineTextFields
-import com.edu.teachingnepal.features.util.ui.PasswordTextField
+import com.edu.teachingnepal.features.util.ui.OutlineTextFieldView
+import com.edu.teachingnepal.features.util.ui.PasswordTextFieldView
 import com.edu.teachingnepal.features.util.ui.RegularText
 import com.edu.teachingnepal.features.util.ui.SmallText
 import com.edu.teachingnepal.features.util.ui.TextButtonWithImageIcon
 import com.edu.teachingnepal.features.util.ui.TextView
 import com.edu.teachingnepal.features.util.ui.Title3
 
-//@Preview
 @Composable
 fun LoginViewScreen(navController: NavHostController) {
-
     val context = LocalContext.current
     val sharedPreferences = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
     val loginViewModel = LoginViewModel()
@@ -118,7 +115,7 @@ fun LoginViewScreen(navController: NavHostController) {
             Title3(text = "Sing in to your account", color = Color.Black)
 
             Spacer(modifier = Modifier.padding(top = 40.dp))
-            OutlineTextFields(
+            OutlineTextFieldView(
                 value = email,
                 onValueChange = { email = it },
                 placeholder = "Enter Email",
@@ -128,7 +125,7 @@ fun LoginViewScreen(navController: NavHostController) {
             )
 
             Spacer(modifier = Modifier.padding(top = 15.dp))
-            PasswordTextField(
+            PasswordTextFieldView(
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "Enter Password",
@@ -222,7 +219,6 @@ fun LoginViewScreen(navController: NavHostController) {
     }
 }
 
-@Preview
 @Composable
 fun BottomListImage(onClickAction:()->Unit ={}) {
     Column(modifier = Modifier
@@ -274,7 +270,8 @@ fun BottomListImage(onClickAction:()->Unit ={}) {
                         painterImage = painterResource(id = R.mipmap.img_student),
                         modifier = Modifier
                             .background(color = Color.White)
-                            .height(50.dp).padding(end = 5.dp)
+                            .height(50.dp)
+                            .padding(end = 5.dp)
                     )
                 }
             }
@@ -298,7 +295,8 @@ fun BottomListImage(onClickAction:()->Unit ={}) {
                         painterImage = painterResource(id = R.mipmap.img_parent),
                         modifier = Modifier
                             .background(color = Color.White)
-                            .height(50.dp).padding(start = 5.dp)
+                            .height(50.dp)
+                            .padding(start = 5.dp)
                     )
                     Column(
                         modifier = Modifier

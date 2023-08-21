@@ -16,6 +16,7 @@ import com.edu.teachingnepal.features.outerscreen.ScreenList
 import com.edu.teachingnepal.features.outerscreen.forgotpassword.ForgotPasswordViewScreen
 import com.edu.teachingnepal.features.outerscreen.login.LoginViewScreen
 import com.edu.teachingnepal.features.outerscreen.register.RegisterViewScreen
+import com.edu.teachingnepal.features.video.VideoPlayViewScreen
 import com.edu.teachingnepal.ui.theme.TeachingNepalTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,6 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+//                    VideoPlayViewScreen()
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = ScreenList.MainScreen.route) {
 

@@ -32,7 +32,7 @@ import androidx.navigation.NavHostController
 import com.edu.teachingnepal.R
 import com.edu.teachingnepal.features.util.ui.ImageViewPainter
 import com.edu.teachingnepal.features.util.ui.MaterialButton
-import com.edu.teachingnepal.features.util.ui.OutlineTextFields
+import com.edu.teachingnepal.features.util.ui.OutlineTextFieldView
 import com.edu.teachingnepal.features.util.ui.TextView
 
 val forgotPasswordViewModel = ForgotPasswordViewModel()
@@ -114,7 +114,7 @@ fun ForgotPasswordViewScreen(navController: NavHostController) {
                 modifier = Modifier.padding(top = 30.dp, bottom = 30.dp)
             )
 
-            OutlineTextFields(
+            OutlineTextFieldView(
                 value = email,
                 onValueChange = { email = it },
                 placeholder = "Enter Email",
